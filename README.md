@@ -1,22 +1,15 @@
-# LED-Matrix
+OBS-Neopixel-display
+====================
 
-## Dependencies
+All in one repo that contains (improved versions of) the firmware, case and manual for the OBS-Neopixel-display.
 
-Raspberry Pi OS
+[start here (german build instructions)](bauanleitung/README.md)
 
-```
-sudo apt install python3-pip libopenjp2-7 libtiff5
-sudo pip3 install pillow rpi_ws281x adafruit-circuitpython-neopixel bleak==0.14.3
-```
+> **Warning**l
+> If you already use the firmware on a device note that the button pin was changed in the firmware to make the Firmware compatible to both Raspberry Pi 1 and 2
 
-**Hint**: Bleak 0.15 does not work!
-
-Run with:
-
-```
-sudo python obs-neo.py
-```
-
-## Font
-
-Font taken from https://github.com/hzeller/rpi-rgb-led-matrix/tree/master/fonts and converted with Pillow (see https://stackoverflow.com/questions/48304078/python-pillow-and-font-conversion).
+References
+----------
+- [original firmware source code from](https://git.chaotikum.org/malte/openbikesensor-neopixel)
+- [original case from](https://github.com/openbikesensor/8x32-neopixel-case)
+- [original manual](https://md.dennis-boldt.de/e7RjfgLORk20s4eOPV2OUQ)

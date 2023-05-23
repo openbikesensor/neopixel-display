@@ -18,16 +18,16 @@ from bleak import BleakClient, BleakScanner
 
 # setup GPIO
 import RPi.GPIO as GPIO
+
 GPIO.setmode(GPIO.BCM)
 
 OBS_MAC = "40:91:51:9B:6E:22"
 HANDLEBAR_OFFSET_UUID = "1FE7FAF9-CE63-4236-0004-000000000004"
 
+BUTTON = 17
+ARRANGEMENT = "8x32"  # "32x8"
 
-BUTTON = 16
-ARRANGEMENT =  "8x32" #"32x8"
-
-handlebar_left = 30;
+handlebar_left = 30
 
 GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 last_button = GPIO.input(BUTTON)
@@ -57,41 +57,44 @@ display_on = True
 timeout_seconds = 20
 obs_address = None
 
-i=0
+i = 0
 last = deque(maxlen=3)
 
-def notification_handler(sender, data):
-    global display_on,i,handlebar_left
 
+def notification_handler(sender, data):
+    global display_on, i, handlebar_left
 
     """Simple notification handler which prints the data received."""
-    t,lraw,r=struct.unpack("Ihh",data)
+    t, lraw, r = struct.unpack("Ihh", data)
 
     last.append(lraw)
-    l=median(last)
-    l-=handlebar_left
-    print(f"sensortime: {t}, Left distance {l}, right distance {r}")
-    if l == -1-handlebar_left:
-       show_text_on_display("___CM", (255,255,255)) # white
+    l = median(last)
+    l -= handlebar_left
+    i += 1
+    if i % 2:
+        return
+    print(f"sensortime: {t}, Left distance {l}, right distance {r} last {last}")
+    if l == -1 - handlebar_left:
+        show_text_on_display("___CM", (160, 128, 128))  # white
     elif l < 0:
-       show_text_on_display("XXXXX", (255,0,0),0)
+        show_text_on_display("XXXXX", (255, 0, 0), 0)
     elif l < 100:
-       show_text_on_display(" " + str(l) + "CM", (255,0,0), l * 32 / 200) # red
+        show_text_on_display(" " + str(l) + "CM", (255, 0, 0), l * 32 / 200)  # red
     elif l < 150:
-       show_text_on_display(str(l) + "CM", (255,255,0), l * 32 / 200) # yellow
+        show_text_on_display(str(l) + "CM", (128, 128, 0), l * 32 / 200)  # yellow
     else:
-       show_text_on_display(str(l) + "CM", (0,128,0), l * 32 / 200)  # green
+        show_text_on_display(str(l) + "CM", (0, 128, 0), l * 32 / 200)  # green
 
-def show_text_on_display(text, fill, length = None):
 
+def show_text_on_display(text, fill, length=None):
     image = Image.new('RGB', (32, 8), color="black")
     draw = ImageDraw.Draw(image)
 
     if display_on:
         font = ImageFont.load("6x9.pil")
-        draw.text((1,-1), text, fill=fill, font=font)
+        draw.text((1, -1), text, fill=fill, font=font)
         if length:
-            draw.line([(0,7), (length,7)], fill, 1)
+            draw.line([(0, 7), (length, 7)], fill, 1)
 
     for x in range(0, 32):
         for y in range(0, 8):
@@ -107,8 +110,9 @@ def show_text_on_display(text, fill, length = None):
                     i += 31 - x
                 else:
                     i += x
-            pixels[255-i] = image.getpixel((x,y))
+            pixels[255 - i] = image.getpixel((x, y))
     pixels.show()
+
 
 def read_button():
     global display_on
@@ -124,6 +128,7 @@ def read_button():
         current_button = last_button
         time.sleep(0.2)
 
+
 async def main(address, char_uuid):
     # read input
     t = Thread(target=read_button)
@@ -132,14 +137,16 @@ async def main(address, char_uuid):
 
     await connect(address, char_uuid)
 
+
 bt_connected = False
+
 
 async def connect(address, char_uuid):
     global bt_connected, handlebar_left
 
     def disconnected_callback(client):
         global bt_connected
-        print("DISCONNECTED");
+        print("DISCONNECTED")
         bt_connected = False
 
     async with BleakClient(address, disconnected_callback=disconnected_callback) as client:
@@ -154,6 +161,7 @@ async def connect(address, char_uuid):
             if not bt_connected:
                 break
             await asyncio.sleep(0.5)
+
 
 class MyScanner:
     def __init__(self):
@@ -171,7 +179,7 @@ class MyScanner:
     async def run(self):
         global obs_address
         print("Scan for devices")
-        show_text_on_display("OBS...", (255,255,255))   # white
+        show_text_on_display("OBS...", (0, 0, 150))  # white
         obs_address = None
         await self._scanner.start()
         self.scanning.set()
@@ -185,8 +193,10 @@ class MyScanner:
         if obs_address == None:
             raise Exception('No OBS found')
 
+
 my_scanner = MyScanner()
 loop = asyncio.get_event_loop()
+
 
 def run():
     loop.run_until_complete(my_scanner.run())
@@ -194,17 +204,18 @@ def run():
     CHARACTERISTIC_UUID = "1FE7FAF9-CE63-4236-0004-000000000002"
     ADDRESS = (
         obs_address
-#        if platform.system() != "Darwin"
-#        else "B9EA5233-37EF-4DD6-87A8-2A875E821C46"
+        #        if platform.system() != "Darwin"
+        #        else "B9EA5233-37EF-4DD6-87A8-2A875E821C46"
     )
 
     asyncio.run(
         main(ADDRESS, CHARACTERISTIC_UUID)
     )
 
+
 while True:
     try:
         run()
     except Exception as e:
-        print(str(e));
-        print("ERROR. Retry");
+        print(str(e))
+        print("ERROR. Retry")
