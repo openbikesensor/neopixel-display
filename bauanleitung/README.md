@@ -10,12 +10,12 @@
 
 Dieses Dokument beschreibt, wie die Sensorwerte des OBSs auf einer Neopixel-LED-Matrix an einem RasperryPi Zero W angezeigt werden.
 
-> **Warning:**
+> **Warning**
 > Dieses Dokument zeigt (noch) ein 3D-gerucktes Gehäuse. Praktisch sind wir inzwischen 
 > bei einem Holzgehäuse angekommen.
 
-> **Warning:**
-> Gegenüber früheren Versionen hat sich der standardpin für den Button geändert - Falls du schon ein gerät besitzt musst du ggf. den Button pin in der für dich passenden `.py` Datei anpassen.
+> **Warning**
+> Gegenüber früheren Versionen hat sich der Standardpin für den Button geändert - Falls du schon ein Gerät besitzt, musst du ggf. den Button pin in der für dich passenden `.py` Datei anpassen.
 
 ### Links
 

@@ -5,8 +5,7 @@ All in one repo that contains (improved versions of) the firmware, case and manu
 
 [start here (german build instructions)](bauanleitung/README.md)
 
-> **Warning**l
-> If you already use the firmware on a device note that the button pin was changed in the firmware to make the Firmware compatible to both Raspberry Pi 1 and 2
+> **Warning** If you already use the firmware on a device note that the button pin was changed in the firmware to make the Firmware compatible to both Raspberry Pi 1 and 2
 
 References
 ----------
