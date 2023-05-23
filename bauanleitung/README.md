@@ -91,8 +91,9 @@ Damit ist auf jeden Fall luft für:
 ![](94eee249f74dc2ebce6e0b031.png)
 
 * Das Daten-Kabel des Displays mit (grün) mit dem GPIO18 (D18) des RaspiZero verbinden (6ter Pin von oben auf der Grafik oben rechts)
-* Den Button zum Ein- und Ausschalten des Displays mit dem GPIO 18 und GND 
+* Den Button zum Ein- und Ausschalten des Displays mit dem GPIO 17 und GND
 
+> **Warning** Bild zeigt nicht die beschribene Pinkonfiguration für den Button pin
 ![](94eee249f74dc2ebce6e0b030.png)  
 
 ## Software
