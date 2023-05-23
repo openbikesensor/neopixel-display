@@ -217,7 +217,7 @@ Mit den Userdaten einloggen.
 * :warning: **Dependencies installieren entsprechend der README** :warning:
     * https://github.com/openbikesensor/neopixel-display
 * Script starten:
-    * `sudo python obs-neo.py` oder für low-power `sudo python obs-neo-lowpower.py` 
+    * `sudo python obs-neo.py` oder für low-power USB Betrieb`sudo python obs-neo-lowpower.py` 
     * Es sollte auf dem Display "OBS..." auftauchen, während er versucht sich mit dem OBS zu verbinden.
     * ![](94eee249f74dc2ebce6e0b033.png)
     * Nachdem der OBS eingeschaltet wurde, sollte der linke Sensorwert angezeigt werden: 

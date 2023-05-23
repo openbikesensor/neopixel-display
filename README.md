@@ -9,6 +9,6 @@ All in one repo that contains (improved versions of) the firmware, case and manu
 
 References
 ----------
-- [original firmware source code from](https://git.chaotikum.org/malte/openbikesensor-neopixel)
-- [original case from](https://github.com/openbikesensor/8x32-neopixel-case)
-- [original manual](https://md.dennis-boldt.de/e7RjfgLORk20s4eOPV2OUQ)
+- [link to original firmware source code](https://git.chaotikum.org/malte/openbikesensor-neopixel)
+- [link to original case](https://github.com/openbikesensor/8x32-neopixel-case)
+- [link to original manual](https://md.dennis-boldt.de/e7RjfgLORk20s4eOPV2OUQ)
